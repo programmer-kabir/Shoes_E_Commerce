@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: white
+}
+
+*{
+  font-family: 'Montserrat', sans-serif;
+
+}
+.primary-btn {
+    @apply px-6 py-3 rounded-md bg-white font-semibold text-black ;
+  }
+.red-color {
+    @apply text-red-400;
+  }
