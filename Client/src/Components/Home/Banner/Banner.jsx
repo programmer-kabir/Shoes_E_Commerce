@@ -1,7 +1,8 @@
-import React from "react";
-import bannerVideo from "../../assets/Video/bideo.mp4";
-import Content from "../Content/Content";
+import bannerVideo from "../../../assets/Video/bideo.mp4";
+import Content from "../../Content/Content";
 const Banner = () => {
+
+ 
   return (
     <Content>
       <div className="grid grid-cols-2 mt-10  gap-6 h-[500px]">
@@ -67,6 +68,7 @@ const Banner = () => {
         </div>
     </div>
     </Content>
+
   );
 };
 

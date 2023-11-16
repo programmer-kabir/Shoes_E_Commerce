@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Content from "../../Components/Content/Content";
 import useCategories from "../../Components/Hooks/useCategories";
 import ProductVariation from "../../Components/Design/ProductVariation";
@@ -34,6 +34,8 @@ const Shoes = () => {
   const handleGenderChange = (gender) => {
     setSelectedGender(gender);
   };
+  const location = useLocation();
+  const { pathname } = location;
   return (
     <div className=" bg-white">
       <Content>
@@ -49,6 +51,8 @@ const Shoes = () => {
         <div className="flex gap-10 mt-12 gap-">
           <div className="w-1/4 ">
             {/*Category  */}
+            {pathname !== '/offer-Shoes' && (
+
             <div>
               <ShoesHeading name={"Categories"} />
               <div className="pt-2">
@@ -109,6 +113,7 @@ const Shoes = () => {
                 )}
               </div>
             </div>
+            )}
 
             {/* Color */}
             <div className="pt-8">

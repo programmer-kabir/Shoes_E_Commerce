@@ -6,6 +6,10 @@ import SingleShoes from "../Pages/Shoes/SingleShoes";
 import DiscountPage from "../Pages/DiscountPage/DiscountPage";
 import Login from "../Pages/Authenction/Login";
 import Register from "../Pages/Authenction/Register";
+import Dashboard from "../Layout/Dashboard";
+import Account from "../Pages/Dashboard/Shared/Account";
+import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
+import Profile from "../Pages/Dashboard/UserDashboard/Profile";
 
 const router = createBrowserRouter([
   {
@@ -37,8 +41,33 @@ const router = createBrowserRouter([
         path: "/discount",
         element: <DiscountPage />,
       },
+      {
+        path: "/offer-Shoes",
+        element: <Shoes />,
+      },
     ],
   },
+  {
+    path:"dashboard",
+    element:<Dashboard />,
+   children:[
+    {
+      path:"my_account",
+      element:<Account />
+    },
+    // Admin
+    {
+      path:'manage_user',
+      element:<AllUsers />
+    },
+    // User
+    {
+      path:'my_profile',
+      element:<Profile />
+    },
+   
+   ]
+  }
 ]);
 
 export default router;

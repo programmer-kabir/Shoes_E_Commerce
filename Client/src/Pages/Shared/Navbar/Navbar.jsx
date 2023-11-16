@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import logo from "../../../assets/Logo/logo.svg";
 import Content from "../../../Components/Content/Content";
 import { Link, NavLink } from "react-router-dom";
-import { FaRegCircleUser } from "react-icons/fa6";
+import {
+  FaArrowRightToBracket,
+  FaRegCircleUser,
+  FaRegHeart,
+} from "react-icons/fa6";
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 import useAuth from "../../../Components/Hooks/useAuth";
+import { MdDashboardCustomize } from "react-icons/md";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const activeLink = "text-red-700";
   const activeThirdLink = "border-b-4 pb-5 border-red-700 transition-all 0.3s";
-  const handleLogOut = () =>{
-    logOut()
-  }
+  const handleLogOut = () => {
+    logOut();
+  };
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -79,7 +84,10 @@ const Navbar = () => {
                 Help
               </NavLink>
               {user ? (
-                <button onClick={handleLogOut} className="text-black hover:text-red-700  border-x-2 px-2">
+                <button
+                  onClick={handleLogOut}
+                  className="text-black hover:text-red-700  border-x-2 px-2"
+                >
                   Logout
                 </button>
               ) : (
@@ -104,46 +112,46 @@ const Navbar = () => {
           <div className="flex items-center justify-between py-3">
             <div className="font-semibold text-base space-x-5">
               <NavLink
-                to="/"
+                to="/mens_casual_shoes"
                 className={({ isActive }) =>
                   isActive
                     ? `${activeThirdLink} `
                     : " hover:text-red-700  pb-3 border-red-700 transition-all 0.3s"
                 }
               >
-                Pizza Oven
+                Men's Casual Shoes
               </NavLink>
               <NavLink
-                to="/s"
+                to="/mens_boots"
                 className={({ isActive }) =>
                   isActive
                     ? `${activeThirdLink} `
                     : " hover:text-red-700  pb-5 border-red-700 transition-all 0.3s"
                 }
               >
-                Bundles
+                Men's Boots
               </NavLink>
               <NavLink
-                to="/s"
+                to="/women_hell"
                 className={({ isActive }) =>
                   isActive
                     ? `${activeThirdLink} `
                     : " hover:text-red-700  pb-5 border-red-700 transition-all 0.3s"
                 }
               >
-                Accessories
+                Heel
               </NavLink>
               <NavLink
-                to="/s"
+                to="/women_sports_shoes"
                 className={({ isActive }) =>
                   isActive
                     ? `${activeThirdLink} `
                     : " hover:text-red-700  pb-5 border-red-700 transition-all 0.3s"
                 }
               >
-                Patio & Garden
+                Women's Sports Shoes
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/s"
                 className={({ isActive }) =>
                   isActive
@@ -162,16 +170,16 @@ const Navbar = () => {
                 }
               >
                 Camp Stoves
-              </NavLink>
+              </NavLink> */}
               <NavLink
-                to="/s"
+                to="/girl_formal_shoes"
                 className={({ isActive }) =>
                   isActive
                     ? `${activeThirdLink} `
                     : " hover:text-red-700  pb-5 border-red-700 transition-all 0.3s"
                 }
               >
-                Personalize
+                Girl Formal Shoes
               </NavLink>
             </div>
 
@@ -190,25 +198,50 @@ const Navbar = () => {
                 />
               </div>
 
-              <Link to="/sign-in">
-                <FaRegCircleUser size={23} />
-              </Link>
-              <FiShoppingCart onClick={toggleSidebar} size={23} />
+              {user ? (
+                <Link to="/dashboard/my_account">
+                  <MdDashboardCustomize  size={23} />
+                </Link>
+              ) : (
+                <Link to="/sign-in">
+                  <FaRegCircleUser size={23} />
+                </Link>
+              )}
+
+              <FaRegHeart size={23} />
+
+              <FiShoppingCart
+                onClick={toggleSidebar}
+                className="cursor-pointer"
+                size={23}
+              />
             </div>
           </div>
         </Content>
       </div>
       <div className="flex justify-end">
-      {isSidebarOpen && (
-        <div className="fixed top-0 bottom-0 flex justify-end left-0  right-0 bg-black bg-opacity-50 z-50">
-          {/* Add your sidebar content here */}
-          <div className="w-80 bg-white h-full">
-              <h2 className="text-xl">easfas</h2>
-            <div>
+        {isSidebarOpen && (
+          <div className="fixed top-0 bottom-0 flex justify-end left-0  right-0 bg-black bg-opacity-50 z-50 transition-opacity duration-100 ease-in-out">
+            {/* Add your sidebar content here */}
+            <div
+              className={`w-80 p-5 bg-white h-full transform  transition-transform duration-300 ease-in-out ${
+                isSidebarOpen ? "translate-x-0" : ""
+              }`}
+            >
+              <div className="flex justify-between">
+                <h2 className="text-base font-medium">SHOPPING CART</h2>
+                <button
+                  className="flex items-center gap-2 hover:text-blue-500 "
+                  onClick={toggleSidebar}
+                >
+                  <span className="text-base ">close</span>
+                  <FaArrowRightToBracket size={20} />
+                </button>
+              </div>
+              <div className="pt-4 px-2">{/* Content */}</div>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </div>
     </div>
   );

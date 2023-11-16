@@ -48,7 +48,7 @@ const navigate = useNavigate()
         } else {
           toast.error(error.message);
         }
-      });s
+      });
   };
 
   return (
