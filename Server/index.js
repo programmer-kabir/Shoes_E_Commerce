@@ -30,13 +30,32 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Mongo Db
+    const userCollection = client.db("Shoe_E_Commerce").collection("users");
     const shoesCollection = client.db("Shoe_E_Commerce").collection("Shoes");
 
+
+    // User Collection
+    app.post('/users', async(req, res) =>{
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await userCollection.findOne(query);
+      if (existingUser) {
+        return res.send({ message: "user already exist" });
+      }
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    })
+
+    app.get('/users', async(req, res) =>{
+      const user = await userCollection.find().toArray()
+      res.send(user)
+    })
     // Shoes Collection
     app.get("/shoes", async(req, res) =>{
       const shoes = await shoesCollection.find().toArray()
       res.send(shoes)
     })
+
     
 
 

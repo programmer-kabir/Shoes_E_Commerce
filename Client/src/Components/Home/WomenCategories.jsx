@@ -41,7 +41,7 @@ const WomenCategories = () => {
             }}
           >
             {womenCategories.map((category) => (
-            <SwiperSlide>
+            <SwiperSlide key={category._id}>
               <section className="w-[390px] relative h-[500px] mb-5">
               <div className="h-[300px] overflow-hidden">
                 <img

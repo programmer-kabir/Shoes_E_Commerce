@@ -2,13 +2,33 @@ import React, { useState } from "react";
 import Content from "../../Components/Content/Content";
 import logo from "../../assets/Logo/logo.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import {Link} from 'react-router-dom'
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Components/Hooks/useAuth";
+import { useForm } from "react-hook-form";
 const Login = () => {
+  const { singIn,setLoading } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const handleCheckboxChange = () => {
     setIsCheckboxChecked(!isCheckboxChecked);
+  };
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    // console.log(data);
+    singIn(data.email, data.password)
+    .then((result) => {
+      const loggedUser = result.user;
+      navigate(from , {replace:true})
+      setLoading(false);
+    });
   };
   return (
     <Content>
@@ -22,7 +42,7 @@ const Login = () => {
             />
           </section>
 
-          <main className="flex md:mt-10  justify-center px-8 py-8 md:py-0 sm:px-12 lg:col-span-7 lg:px-16  xl:col-span-6">
+          <main className="flex md:mt-10  justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16  xl:col-span-6">
             <div className="max-w-xl lg:max-w-3xl">
               <div className="relative ">
                 <h1 className=" flex items-center gap-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
@@ -39,18 +59,19 @@ const Login = () => {
                 </p>
               </div>
 
-              <form action="#" className="mt-8 grid grid-cols-6 gap-6">
-                
-
-
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="mt-8 grid grid-cols-6 gap-6"
+              >
                 <div className="col-span-6">
                   <label
-                    htmlFor="UserEmail"
+                    htmlFor="email"
                     className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm  "
                   >
                     <input
                       type="email"
-                      id="UserEmail"
+                      id="email"
+                      {...register("email", { required: true })}
                       placeholder="Email"
                       className="peer h-8 w-full border-none bg-white p-0 placeholder-transparent outline-none sm:text-sm"
                     />
@@ -70,6 +91,7 @@ const Login = () => {
                       type={showPassword ? "text" : "password"}
                       id="password"
                       placeholder="password"
+                      {...register("password", { required: true })}
                       className="peer h-8 w-full border-none bg-white p-0 placeholder-transparent outline-none sm:text-sm"
                     />
 
@@ -91,14 +113,13 @@ const Login = () => {
                   </label>
                 </div>
 
-
                 <div className="col-span-6">
                   <label htmlFor="MarketingAccept" className="flex gap-4">
                     <input
                       type="checkbox"
                       id="MarketingAccept"
                       checked={isCheckboxChecked}
-            onChange={handleCheckboxChange}
+                      onChange={handleCheckboxChange}
                       name="marketing_accept"
                       className="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm"
                     />
@@ -111,13 +132,13 @@ const Login = () => {
                 </div>
 
                 <div className="col-span-6">
-                <p className="text-sm text-gray-500">
-                    By creating an account, you agree to our 
+                  <p className="text-sm text-gray-500">
+                    By creating an account, you agree to our
                     <Link className="text-gray-700 px-1 underline">
                       terms and conditions
                     </Link>
-                    and 
-                    <Link  className="text-gray-700 pl-1 underline">
+                    and
+                    <Link className="text-gray-700 pl-1 underline">
                       privacy policy
                     </Link>
                     .
@@ -125,18 +146,23 @@ const Login = () => {
                 </div>
 
                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                  <button className={`inline-block shrink-0 rounded-md border ${
-            isCheckboxChecked
-              ? "border-[#B63155] bg-[#B63155] hover:bg-transparent hover:text-[#B63155]"
-              : "border-gray-300 bg-gray-300 cursor-not-allowed"
-          } px-12 py-3 text-sm font-medium text-white transition focus:outline-none focus:ring active:text-blue-500`}
-          disabled={!isCheckboxChecked}>
+                  <button
+                    className={`inline-block shrink-0 rounded-md border ${
+                      isCheckboxChecked
+                        ? "border-[#B63155] bg-[#B63155] hover:bg-transparent hover:text-[#B63155]"
+                        : "border-gray-300 bg-gray-300 cursor-not-allowed"
+                    } px-12 py-3 text-sm font-medium text-white transition focus:outline-none focus:ring active:text-blue-500`}
+                    disabled={!isCheckboxChecked}
+                  >
                     Login
                   </button>
 
                   <p className="mt-4  text-sm text-gray-500 sm:mt-0">
                     Already have an account?
-                    <Link to='/sign-up' className="text-gray-700 pl-1 underline">
+                    <Link
+                      to="/sign-up"
+                      className="text-gray-700 pl-1 underline"
+                    >
                       Create New Account
                     </Link>
                     .
