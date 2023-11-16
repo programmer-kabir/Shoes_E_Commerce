@@ -5,7 +5,7 @@ import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
 const Shoe = ({ shoes }) => {
-  console.log(shoes);
+  // console.log(shoes);
   return (
     <Link to={`${shoes._id}`}>
       <div className="group block overflow-hidden border border-gray-300">

@@ -9,7 +9,7 @@ const Sidebar = () => {
   const { user } = useAuth();
 
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
+  // console.log(isAdmin);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {

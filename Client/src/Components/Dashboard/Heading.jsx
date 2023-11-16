@@ -35,12 +35,12 @@ const Heading = ({ toggleSidebar }) => {
           <FaBars />
         </button>
 
-        <div className="md:flex hidden gap-2 items-center ">
+        <div className="md:flex hidden px-2 py-1 rounded-md  bg-[#F3F3F9] gap-2 items-center ">
           <AiOutlineSearch className="w-7 h-7" color="#64748b" />
           <input
             type="search"
             name=""
-            className="w-full text-gray-700 focus:outline-none bg-[#fff] text-base"
+            className="w-full text-gray-700 bg- bg-[#F3F3F9] focus:outline-none text-base"
             id=""
             placeholder="Type to search..."
           />

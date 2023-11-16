@@ -3,8 +3,8 @@ import { AiFillStar } from "react-icons/ai";
 import Rating from "react-rating";
 
 const Tabs = ({ DetailsShoes }) => {
-  console.log(DetailsShoes);
-  const [activeTab, setActiveTab] = useState("message");
+  // console.log(DetailsShoes);
+  const [activeTab, setActiveTab] = useState("description");
   //   Ratting
   const [rating, setRating] = useState(0);
   const changeTab = (tab) => {

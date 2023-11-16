@@ -20,13 +20,13 @@ const Shoes = () => {
   useEffect(() => {
     dispatch(fetchShoes());
   }, []);
-  console.log(shoes);
+  // console.log(shoes);
   const [category] = useCategories();
   const link = useParams();
-   console.log(shoes);
+  //  console.log(shoes);
   const shoesCategory = link.shoes;
   const filteredShoes = shoes.filter((shoe) => shoe.category === shoesCategory);
-  console.log(filteredShoes);
+  // console.log(filteredShoes);
   const mensCategories = category.filter((shoe) => shoe.Gender === "male");
   const womenCategories = category.filter((shoe) => shoe.Gender === "women"); // console.log(mensCategories);
   const [selectedGender, setSelectedGender] = useState("male");

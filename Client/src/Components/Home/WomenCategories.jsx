@@ -14,7 +14,7 @@ import "./styles.css";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Title from '../Design/Title';
 const WomenCategories = () => {
     const [categories] = useCategories();
@@ -40,8 +40,8 @@ const WomenCategories = () => {
               },
             }}
           >
-            {womenCategories.map((category) => (
-            <SwiperSlide key={category._id}>
+            {womenCategories.map((category,index) => (
+            <SwiperSlide key={index}>
               <section className="w-[390px] relative h-[500px] mb-5">
               <div className="h-[300px] overflow-hidden">
                 <img

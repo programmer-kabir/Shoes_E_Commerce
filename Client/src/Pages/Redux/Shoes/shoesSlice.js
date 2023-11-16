@@ -11,6 +11,7 @@ const shoesSlice = createSlice({
     shoes: [],
     error: null,
   },
+ 
   extraReducers: (builder) => {
     builder.addCase(fetchShoes.pending,(state)=>{
         state.isLoading=true
@@ -25,6 +26,7 @@ const shoesSlice = createSlice({
         state.shoes= [];
         state.error=action.error.message;
     })
+    
   },
 });
 
