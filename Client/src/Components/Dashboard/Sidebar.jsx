@@ -103,7 +103,7 @@ const Sidebar = () => {
               </NavLink>
 
               <NavLink
-                to="/"
+                to="my_orders"
                 className={({ isActive }) =>
                   `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : ""
@@ -114,7 +114,7 @@ const Sidebar = () => {
                 <span>My Orders</span>
               </NavLink>
               <NavLink
-                to="/"
+                to="wishlist"
                 className={({ isActive }) =>
                   `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : ""
@@ -125,7 +125,7 @@ const Sidebar = () => {
                 <span>Wishlist</span>
               </NavLink>
               <NavLink
-                to="/"
+                to="reward-points"
                 className={({ isActive }) =>
                   `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : ""
@@ -137,7 +137,7 @@ const Sidebar = () => {
               </NavLink>
 
               <NavLink
-                to="/"
+                to="payment-history"
                 className={({ isActive }) =>
                   `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : ""

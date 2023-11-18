@@ -10,6 +10,7 @@ import {
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 import useAuth from "../../../Components/Hooks/useAuth";
 import { MdDashboardCustomize } from "react-icons/md";
+import HomeOrderCart from "../../Dashboard/UserDashboard/HomeOrderCart";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -200,7 +201,7 @@ const Navbar = () => {
 
               {user ? (
                 <Link to="/dashboard/my_account">
-                  <MdDashboardCustomize  size={23} />
+                  <MdDashboardCustomize size={23} />
                 </Link>
               ) : (
                 <Link to="/sign-in">
@@ -210,11 +211,15 @@ const Navbar = () => {
 
               <FaRegHeart size={23} />
 
-              <FiShoppingCart
-                onClick={toggleSidebar}
-                className="cursor-pointer"
-                size={23}
-              />
+              {user ? (
+                <FiShoppingCart
+                  onClick={toggleSidebar}
+                  className="cursor-pointer"
+                  size={23}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </Content>
@@ -224,7 +229,7 @@ const Navbar = () => {
           <div className="fixed top-0 bottom-0 flex justify-end left-0  right-0 bg-black bg-opacity-50 z-50 transition-opacity duration-100 ease-in-out">
             {/* Add your sidebar content here */}
             <div
-              className={`w-80 p-5 bg-white h-full transform  transition-transform duration-300 ease-in-out ${
+              className={`w-[480px] overflow-y-auto p-5 bg-white h-full transform  transition-transform duration-300 ease-in-out ${
                 isSidebarOpen ? "translate-x-0" : ""
               }`}
             >
@@ -238,7 +243,9 @@ const Navbar = () => {
                   <FaArrowRightToBracket size={20} />
                 </button>
               </div>
-              <div className="pt-4 px-2">{/* Content */}</div>
+              <div className="pt-4 px-2">
+                <HomeOrderCart />
+              </div>
             </div>
           </div>
         )}

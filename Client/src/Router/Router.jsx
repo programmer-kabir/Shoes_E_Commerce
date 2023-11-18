@@ -10,6 +10,10 @@ import Dashboard from "../Layout/Dashboard";
 import Account from "../Pages/Dashboard/Shared/Account";
 import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
 import Profile from "../Pages/Dashboard/UserDashboard/Profile";
+import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
+import Wishlist from "../Pages/Dashboard/UserDashboard/Wishlist";
+import Reward from "../Pages/Dashboard/UserDashboard/Reward";
+import PaymentHistory from "../Pages/Dashboard/UserDashboard/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +68,22 @@ const router = createBrowserRouter([
     {
       path:'my_profile',
       element:<Profile />
+    },
+    {
+      path:'my_orders',
+      element:<MyOrder />
+    },
+    {
+      path:'wishlist',
+      element:<Wishlist />
+    },
+    {
+      path:'reward-points',
+      element:<Reward />
+    },
+    {
+      path:'payment-history',
+      element:<PaymentHistory />
     },
    
    ]

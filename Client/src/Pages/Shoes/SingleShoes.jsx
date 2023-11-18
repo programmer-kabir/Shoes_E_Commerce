@@ -13,27 +13,22 @@ import DeliveryOption from "../../Components/Design/DeliveryOption/DeliveryOptio
 import Tabs from "../../Components/Design/Shoes/Tabs";
 import useAuth from "../../Components/Hooks/useAuth";
 import axios from "axios";
-import { fetchBooked, productAddedToCart } from "../Redux/Booked/BookedSlice";
+import { fetchBooked } from "../Redux/Booked/BookedSlice";
 const SingleShoes = () => {
   const param = useParams();
   const { user } = useAuth();
   const { isLoading, shoes, review } = useSelector((state) => state.shoes);
-  const {
-    isLoading: bookedLoading,
-    booked,
-    error,
-  } = useSelector((state) => state.booked);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchShoes());
-    dispatch(fetchBooked());
-  }, [dispatch]);
+  }, []);
   const DetailsShoes = shoes.find((shoe) => shoe._id === param.id);
 
-  const existingBooking = booked.find(
-    (booking) => booking.productId === DetailsShoes?._id
-  );
-  const isButtonDisabled = !!existingBooking;
+  // const existingBooking = booked.find(
+  //   (booking) => booking.productId === DetailsShoes?._id
+  // );
+  // const isButtonDisabled = !!existingBooking;
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState("mainImage");
   const [activeSize, setActiveSize] = useState(null);
@@ -64,7 +59,7 @@ const SingleShoes = () => {
     }
   };
   // Cart
-
+console.log(DetailsShoes.Description.Upper_Material);
   const handleAddToCart = (id) => {
     if (!activeSize || quantity <= 0) {
       toast.error("size not Select");
@@ -74,9 +69,14 @@ const SingleShoes = () => {
     axios
       .post(`${import.meta.env.VITE_LOCALHOST_KEY}/booked`, {
         productId: id,
+        name:DetailsShoes?.name,
+        image:DetailsShoes.mainImage,
         email: user?.email,
         size: activeSize,
         quantity,
+        price:DetailsShoes.price,
+        upperMaterial:DetailsShoes.Description.Upper_Material,
+        seller:DetailsShoes.seller
       })
       .then((data) => {
         console.log(data.data);
@@ -232,10 +232,8 @@ const SingleShoes = () => {
                         {/* Add to cart button */}
                         <button
                           onClick={() => handleAddToCart(DetailsShoes._id)}
-                          className={`uppercase flex items-center gap-2 bg-[#439DDF] hover:bg-[#B63155] text-white rounded-sm ${
-                            isButtonDisabled ? "cursor-not-allowed" : ""
-                          } font-semibold px-6 py-2`}
-                          disabled={isButtonDisabled}
+                          className="uppercase flex items-center gap-2 bg-[#439DDF] hover:bg-[#B63155] text-white rounded-sm font-semibold px-6 py-2"
+                          
                         >
                           <MdOutlineShoppingBag size={24} color="white" />
                           ADD to cart

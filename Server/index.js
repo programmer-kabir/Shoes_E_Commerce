@@ -135,8 +135,9 @@ async function run() {
       const body = req.body;
       console.log(body);
       const id = body.productId;
-      console.log(id);
-      const filter = { productId: id };
+      const email = body.email;
+      const filter = { productId: id, email };
+      console.log(filter);
       const data = await bookedCollection.findOne(filter);
       if (data) {
         return res.send({ message: "Class already exist" });
@@ -146,9 +147,16 @@ async function run() {
       }
     });
     app.get("/booked", async (req, res) => {
-      const data = await bookedCollection.find().toArray();
+      const email = req.query.email;
+      // console.log(email);
+      if (!email) {
+        res.send([]);
+      }
+      const query = { email: email };
+      const data = await bookedCollection.find(query).toArray();
       res.send(data);
     });
+  
     // Address
     app.get("/district", async (req, res) => {
       const district = await districtCollection.find().toArray();
