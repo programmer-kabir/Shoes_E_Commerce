@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Content from "../../Components/Content/Content";
 import toast from "react-hot-toast";
 import { fetchShoes } from "../Redux/Shoes/shoesSlice";
@@ -13,10 +13,12 @@ import DeliveryOption from "../../Components/Design/DeliveryOption/DeliveryOptio
 import Tabs from "../../Components/Design/Shoes/Tabs";
 import useAuth from "../../Components/Hooks/useAuth";
 import axios from "axios";
-import { fetchBooked } from "../Redux/Booked/BookedSlice";
+import Swal from 'sweetalert2'
+// import toast from 'react-hot-toast'
 const SingleShoes = () => {
   const param = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate()
   const { isLoading, shoes, review } = useSelector((state) => state.shoes);
 
   const dispatch = useDispatch();
@@ -61,35 +63,51 @@ const SingleShoes = () => {
   // Cart
 console.log(DetailsShoes.Description.Upper_Material);
   const handleAddToCart = (id) => {
-    if (!activeSize || quantity <= 0) {
-      toast.error("size not Select");
-      return;
-    }
-    
-    axios
-      .post(`${import.meta.env.VITE_LOCALHOST_KEY}/booked`, {
-        productId: id,
-        name:DetailsShoes?.name,
-        image:DetailsShoes.mainImage,
-        email: user?.email,
-        size: activeSize,
-        quantity,
-        price:DetailsShoes.price,
-        upperMaterial:DetailsShoes.Description.Upper_Material,
-        seller:DetailsShoes.seller
-      })
-      .then((data) => {
-        console.log(data.data);
-        // if (data.data.insertedId) {
-        //   toast.success("Product Added To Cart");
-        // }
-        if (data.data.insertedId) {
-          toast.success("Product Added To Cart");
+    if(user){
+      if (!activeSize || quantity <= 0) {
+        toast.error("size not Select");
+        return;
+      }
+      
+      axios
+        .post(`${import.meta.env.VITE_LOCALHOST_KEY}/booked`, {
+          productId: id,
+          name:DetailsShoes?.name,
+          image:DetailsShoes.mainImage,
+          email: user?.email,
+          size: activeSize,
+          quantity,
+          price:DetailsShoes.price,
+          upperMaterial:DetailsShoes.Description.Upper_Material,
+          seller:DetailsShoes.seller
+        })
+        .then((data) => {
+          console.log(data.data);
+          if (data.data.insertedId) {
+            toast.success("Product Added To Cart");
+          }else  {
+            toast.error('Product Already Added');
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding to cart:", error);
+        });
+    }else{
+      Swal.fire({
+        title: "Please Login now?",
+        text: "Your account is not active. Please log in now!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login now!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+    navigate('/sign-in');
         }
-      })
-      .catch((error) => {
-        console.error("Error adding to cart:", error);
       });
+    }
+
   };
 
   return (

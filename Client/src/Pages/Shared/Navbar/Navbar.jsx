@@ -15,7 +15,7 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const activeLink = "text-red-700";
-  const activeThirdLink = "border-b-4 pb-5 border-red-700 transition-all 0.3s";
+  const activeThirdLink = "text-red-500 transition-all 0.3s";
   const handleLogOut = () => {
     logOut();
   };
@@ -37,7 +37,7 @@ const Navbar = () => {
                 to="/s"
                 className={({ isActive }) =>
                   isActive
-                    ? `${activeThirdLink}  px-2`
+                    ? `${activeThirdLink}   px-2`
                     : " hover:text-red-700   px-2  transition-all 0.3s"
                 }
               >
@@ -47,8 +47,8 @@ const Navbar = () => {
                 to="/s"
                 className={({ isActive }) =>
                   isActive
-                    ? `${activeLink} border-x-2 px-2`
-                    : "border-x-2   px-2  hover:text-red-700"
+                    ? `${activeThirdLink}  px-2`
+                    : " hover:text-red-700   px-2  transition-all 0.3s"
                 }
               >
                 Gift Cards
@@ -67,8 +67,8 @@ const Navbar = () => {
                 to="/s"
                 className={({ isActive }) =>
                   isActive
-                    ? `${activeLink} border-x-2  px-2`
-                    : "border-x-2  hover:text-red-700  px-2"
+                    ? `${activeThirdLink}  px-2`
+                    : " hover:text-red-700   px-2  transition-all 0.3s"
                 }
               >
                 Community
@@ -77,17 +77,17 @@ const Navbar = () => {
               <NavLink
                 to="/s"
                 className={({ isActive }) =>
-                  isActive
-                    ? `${activeThirdLink}   px-2`
-                    : " hover:text-red-700  px-2   transition-all 0.3s"
-                }
+                isActive
+                  ? `${activeThirdLink}  px-2`
+                  : " hover:text-red-700   px-2  transition-all 0.3s"
+              }
               >
                 Help
               </NavLink>
               {user ? (
                 <button
                   onClick={handleLogOut}
-                  className="text-black hover:text-red-700  border-x-2 px-2"
+                  className="text-black hover:text-red-700  px-2"
                 >
                   Logout
                 </button>
@@ -95,10 +95,10 @@ const Navbar = () => {
                 <NavLink
                   to="/sign-in"
                   className={({ isActive }) =>
-                    isActive
-                      ? `${activeLink} border-x-2  px-2`
-                      : "border-x-2  hover:text-red-700  px-2"
-                  }
+                isActive
+                  ? `${activeThirdLink}  px-2`
+                  : " hover:text-red-700   px-2  transition-all 0.3s"
+              }
                 >
                   Login
                 </NavLink>

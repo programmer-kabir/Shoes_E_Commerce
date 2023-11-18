@@ -5,7 +5,17 @@ import District from "../../../Components/Apis/Distric";
 import Division from "../../../Components/Apis/Division";
 import upZillah from "../../../Components/Apis/upZillah";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../Redux/User/userSlice";
+import axios from "axios";
+import toast from "react-hot-toast";
 const Profile = () => {
+  const { isLoading, users, error } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
+  // console.log(users);
   const {
     handleSubmit,
     control,
@@ -13,7 +23,12 @@ const Profile = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const { user } = useAuth();
+  const { user, updateUserProfile } = useAuth();
+  const matchingUsers = users.filter(
+    (userData) => userData.email === user?.email
+  );
+
+  // console.log(matchingUsers);
   const [district] = District();
   const [division] = Division();
   const [upZillahs] = upZillah();
@@ -38,33 +53,45 @@ const Profile = () => {
   let firstName;
   let lastName;
 
-  if (user?.displayName) {
-    const [firstNames, lastNames] = user?.displayName.split(" ");
+  // Check if matchingUsers has any elements
+  if (matchingUsers.length > 0) {
+    const [firstNames, lastNames] = matchingUsers[0].name.split(" ");
 
     firstName = firstNames;
     lastName = lastNames;
   }
+  // console.log(matchingUsers[0]?.email);
+
   const [isEditMode, setEditMode] = useState(false);
-  const [gender, setGender] = useState("Gender");
-  const [editingGender, setEditingGender] = useState(false);
-  const [birthDate, setBirthDate] = useState("Date of Birth"); // To store the birth date
-  const [editingBirthDate, setEditingBirthDate] = useState(false); // To check if birth date is being edited
 
-  const handleGenderChange = (e) => {
-    setGender(e.target.value);
-    setEditingGender(false);
-  };
-  const handleBirthDateChange = (e) => {
-    setBirthDate(e.target.value);
-    setEditingBirthDate(false);
-  };
+  // const handleGenderChange = (e) => {
+  //   setGender(e.target.value);
+  //   setEditingGender(false);
+  // };
+  // const handleBirthDateChange = (e) => {
+  //   setBirthDate(e.target.value);
+  //   setEditingBirthDate(false);
+  // };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async(data) => {
+    // console.log(data);
+    const name = data.firstName + ' ' +lastName;
+    console.log(name);
+    
     const districtId = data.district;
     const districts = district.find((dis) => dis.id === districtId);
     const districtName = districts.name;
-    console.log(data.date);
+    // console.log(data.date);
+    name;
+    data.district = districtName;
+    const response = await axios.put(`${import.meta.env.VITE_LOCALHOST_KEY}/users`, data)
+    .then(data =>{
+      console.log(data.data);
+      if(data.data.modifiedCount > 0){
+        toast.success('Successfully Your Data Update')
+        setEditMode(false)
+      }
+    })
   };
   return (
     <div className="px-5 pt-7 ">
@@ -153,7 +180,7 @@ const Profile = () => {
                     type="email"
                     id="email"
                     {...register("email", { required: true })}
-                    defaultValue={user?.email}
+                    defaultValue={matchingUsers[0]?.email}
                     readOnly
                     placeholder="Email"
                     className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -164,52 +191,51 @@ const Profile = () => {
                   </span>
                 </label>
                 {/* Gender */}
-                <div onClick={() => setEditingGender(true)}>
-                  {editingGender ? (
-                    <select
-                      {...register("gender", { required: true })}
-                      value={gender}
-                      onChange={handleGenderChange}
-                      onBlur={() => setEditingGender(false)}
-                      className={`border ${
-                        errors.gender ? "border-red-500" : "border-gray-700"
-                      } w-full py-2 rounded px-3`}
-                    >
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  ) : (
-                    <p
-                      className={`border ${
-                        errors.gender ? "border-red-500" : "border-gray-700"
-                      } w-full py-2 rounded px-3`}
-                    >
-                      {gender}
-                    </p>
-                  )}
+                <div>
+                  <label
+                    htmlFor="gender"
+                    className="block text-sm font-medium text-gray-900"
+                  >
+                    Gender
+                  </label>
+
+                  <select
+                    name="gender"
+                    id="gender"
+                    {...register("gender", { required: true })}
+                    defaultValue={matchingUsers[0]?.gender}
+                    className={`border ${
+                      errors.date
+                        ? "border-red-500 outline-none"
+                        : "border-gray-700"
+                    } w-full py-2 rounded px-3`}
+                  >
+                    <option value="" selected disabled>
+                      Please select
+                    </option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
                 </div>
                 {/* Date of Birth */}
-                {editingBirthDate ? (
-                  <input
-                    type="date"
-                    value={birthDate === "Date of Birth" ? "" : birthDate}
-                    {...register("date", { required: true })}
-                    onChange={handleBirthDateChange}
-                    onBlur={() => setEditingBirthDate(false)}
-                    className={`border ${
-                      errors.date ? "border-red-500" : "border-gray-700"
-                    } w-full py-2 rounded px-3`}
-                  />
-                ) : (
-                  <div
-                    className={`border ${
-                      errors.date ? "border-red-500" : "border-gray-700"
-                    } w-full py-2 rounded px-3 cursor-pointer`}
-                    onClick={() => setEditingBirthDate(true)}
+                <div>
+                <label
+                    htmlFor="gender"
+                    className="block text-sm font-medium text-gray-900"
                   >
-                    {birthDate}
-                  </div>
-                )}
+                    Date of Birth
+                  </label>
+                <input
+                  type="date"
+                  name=""
+                  id=""
+                  {...register("date", { required: true })}
+                  defaultValue={matchingUsers[0]?.date}
+                  className={`border ${
+                    errors.date ? "border-red-500" : "border-gray-700"
+                  } w-full py-2 rounded px-3`}
+                />
+                </div>
                 {/* Division and District */}
                 <div className="w-full gap-2 flex">
                   <div className="w-1/2">
@@ -222,6 +248,7 @@ const Profile = () => {
                       <select
                         id="division"
                         {...register("divison", { required: true })}
+                        defaultValue={matchingUsers[0]?.divison}
                         value={selectedDivision}
                         onChange={(e) => setSelectedDivision(e.target.value)}
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -251,6 +278,7 @@ const Profile = () => {
                       <select
                         id="district"
                         {...register("district", { required: true })}
+                        defaultValue={matchingUsers[0]?.district}
                         value={selectedDistrict}
                         onChange={(e) => setSelectedDistrict(e.target.value)}
                         className="peer h-8 w-full  border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -283,6 +311,7 @@ const Profile = () => {
                       <select
                         id="upZillah"
                         {...register("upZillah", { required: true })}
+                        defaultValue={matchingUsers[0]?.upZillah}
                         value={selectedUpzillah}
                         onChange={(e) => setSelectedUpzillah(e.target.value)}
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -312,6 +341,7 @@ const Profile = () => {
                       <input
                         type="text"
                         {...register("village", { required: true })}
+                        defaultValue={matchingUsers[0]?.village}
                         id="village"
                         placeholder="village Name"
                         className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -329,33 +359,79 @@ const Profile = () => {
                 </button>
               </form>
             ) : (
-              <div className="px-5 space-y-4 flex justify-between">
+              <div className="px-5  flex justify-between">
                 <div className="space-y-4">
                   <div>
                     <p className="text-gray-800">First Name</p>
-                    <p className="font-semibold">Kabir</p>
+                    <p className="font-semibold">{firstName}</p>
                   </div>
                   <div>
                     <p className="text-gray-800">Email</p>
-                    <p className="font-semibold">programmerkabirr@gmail.com</p>
+                    <p className="font-semibold">{matchingUsers[0]?.email}</p>
                   </div>
                   <div>
                     <p className="text-gray-800">Gender</p>
-                    <p className="font-semibold">N/A</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.gender
+                        ? matchingUsers[0]?.gender
+                        : "N/A"}
+                    </p>
+                  </div>
+                  
+                  
+                  <div>
+                    <p className="text-gray-800">Division Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.divison
+                        ? matchingUsers[0]?.divison
+                        : "N/A"}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-gray-800">Date of Birth</p>
-                    <p className="font-semibold">N/A</p>
+                    <p className="text-gray-800">Up Zillah Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.upZillah
+                        ? matchingUsers[0]?.upZillah
+                        : "N/A"}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="text-start">
                     <p className="text-gray-800">Last Name</p>
-                    <p className="font-semibold">Hossen</p>
+                    <p className="font-semibold">{lastName}</p>
                   </div>
                   <div>
                     <p className="text-gray-800">Phone Number</p>
-                    <p className="font-semibold">N/A</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.number
+                        ? matchingUsers[0]?.number
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Date of Birth</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.date
+                        ? matchingUsers[0]?.date
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">District Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.district
+                        ? matchingUsers[0]?.district
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-800">Village Name</p>
+                    <p className="font-semibold">
+                      {matchingUsers[0]?.village
+                        ? matchingUsers[0]?.village
+                        : "N/A"}
+                    </p>
                   </div>
                 </div>
               </div>

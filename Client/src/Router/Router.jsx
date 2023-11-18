@@ -14,6 +14,7 @@ import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
 import Wishlist from "../Pages/Dashboard/UserDashboard/Wishlist";
 import Reward from "../Pages/Dashboard/UserDashboard/Reward";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/PaymentHistory";
+import PrivateRoute from "./PriverRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,42 +53,45 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:"dashboard",
-    element:<Dashboard />,
-   children:[
-    {
-      path:"my_account",
-      element:<Account />
-    },
-    // Admin
-    {
-      path:'manage_user',
-      element:<AllUsers />
-    },
-    // User
-    {
-      path:'my_profile',
-      element:<Profile />
-    },
-    {
-      path:'my_orders',
-      element:<MyOrder />
-    },
-    {
-      path:'wishlist',
-      element:<Wishlist />
-    },
-    {
-      path:'reward-points',
-      element:<Reward />
-    },
-    {
-      path:'payment-history',
-      element:<PaymentHistory />
-    },
-   
-   ]
-  }
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "my_account",
+        element: <Account />,
+      },
+      // Admin
+      {
+        path: "manage_user",
+        element: <AllUsers />,
+      },
+      // User
+      {
+        path: "my_profile",
+        element: <Profile />,
+      },
+      {
+        path: "my_orders",
+        element: <MyOrder />,
+      },
+      {
+        path: "wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "reward-points",
+        element: <Reward />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
+      },
+    ],
+  },
 ]);
 
 export default router;
