@@ -14,6 +14,7 @@ import HomeOrderCart from "../../Dashboard/UserDashboard/HomeOrderCart";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [nav, setNav] = useState(false);
   const activeLink = "text-red-700";
   const activeThirdLink = "text-red-500 transition-all 0.3s";
   const handleLogOut = () => {
@@ -23,10 +24,10 @@ const Navbar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
-    <div className="bg-white w-full">
+    <div className="bg-white w-full  ">
       {/* Top Navbar */}
       {/* Second navbar */}
-      <div className="border-b border-gray-400 ">
+      <div className="border-b border-gray-400 hidden md:block">
         <Content>
           <div className="flex items-center justify-between py-2">
             <Link to={"/"}>
@@ -77,10 +78,10 @@ const Navbar = () => {
               <NavLink
                 to="/s"
                 className={({ isActive }) =>
-                isActive
-                  ? `${activeThirdLink}  px-2`
-                  : " hover:text-red-700   px-2  transition-all 0.3s"
-              }
+                  isActive
+                    ? `${activeThirdLink}  px-2`
+                    : " hover:text-red-700   px-2  transition-all 0.3s"
+                }
               >
                 Help
               </NavLink>
@@ -95,10 +96,10 @@ const Navbar = () => {
                 <NavLink
                   to="/sign-in"
                   className={({ isActive }) =>
-                isActive
-                  ? `${activeThirdLink}  px-2`
-                  : " hover:text-red-700   px-2  transition-all 0.3s"
-              }
+                    isActive
+                      ? `${activeThirdLink}  px-2`
+                      : " hover:text-red-700   px-2  transition-all 0.3s"
+                  }
                 >
                   Login
                 </NavLink>
@@ -108,7 +109,7 @@ const Navbar = () => {
         </Content>
       </div>
       {/* Third Navbar */}
-      <div className="border-b border-gray-400 ">
+      <div className="border-b border-gray-400 hidden md:block">
         <Content>
           <div className="flex items-center justify-between py-3">
             <div className="font-semibold text-base space-x-5">
@@ -208,8 +209,9 @@ const Navbar = () => {
                   <FaRegCircleUser size={23} />
                 </Link>
               )}
-
-              <FaRegHeart size={23} />
+              <Link to="/wishlist">
+                <FaRegHeart size={23} />
+              </Link>
 
               {user ? (
                 <FiShoppingCart

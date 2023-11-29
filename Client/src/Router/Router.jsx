@@ -11,10 +11,11 @@ import Account from "../Pages/Dashboard/Shared/Account";
 import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
 import Profile from "../Pages/Dashboard/UserDashboard/Profile";
 import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
-import Wishlist from "../Pages/Dashboard/UserDashboard/Wishlist";
 import Reward from "../Pages/Dashboard/UserDashboard/Reward";
 import PaymentHistory from "../Pages/Dashboard/UserDashboard/PaymentHistory";
 import PrivateRoute from "./PriverRoute";
+import AddProduct from "../Pages/Dashboard/AdminDashboard/AddProduct";
+import Wishlist from "../Components/Wishlist/Wishlist";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
         element: <DiscountPage />,
       },
       {
+        path: "/wishlist",
+        element: <Wishlist />,
+      },
+      {
         path: "/offer-Shoes",
         element: <Shoes />,
       },
@@ -69,6 +74,10 @@ const router = createBrowserRouter([
         path: "manage_user",
         element: <AllUsers />,
       },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
       // User
       {
         path: "my_profile",
@@ -77,10 +86,6 @@ const router = createBrowserRouter([
       {
         path: "my_orders",
         element: <MyOrder />,
-      },
-      {
-        path: "wishlist",
-        element: <Wishlist />,
       },
       {
         path: "reward-points",

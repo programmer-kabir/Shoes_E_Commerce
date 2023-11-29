@@ -14,6 +14,7 @@ import Tabs from "../../Components/Design/Shoes/Tabs";
 import useAuth from "../../Components/Hooks/useAuth";
 import axios from "axios";
 import Swal from 'sweetalert2'
+import { handleAddToFavorite } from "../../Components/Favorite/Favorite";
 // import toast from 'react-hot-toast'
 const SingleShoes = () => {
   const param = useParams();
@@ -23,7 +24,7 @@ const SingleShoes = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchShoes());
+    dispatch(fetchShoes()); 
   }, []);
   const DetailsShoes = shoes.find((shoe) => shoe._id === param.id);
 
@@ -34,7 +35,8 @@ const SingleShoes = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState("mainImage");
   const [activeSize, setActiveSize] = useState(null);
-  
+  const [isFavorite, setIsFavorite] = useState(false);
+
   if (isLoading) {
     return <Loader />;
   }
@@ -61,7 +63,6 @@ const SingleShoes = () => {
     }
   };
   // Cart
-console.log(DetailsShoes.Description.Upper_Material);
   const handleAddToCart = (id) => {
     if(user){
       if (!activeSize || quantity <= 0) {
@@ -82,7 +83,7 @@ console.log(DetailsShoes.Description.Upper_Material);
           seller:DetailsShoes.seller
         })
         .then((data) => {
-          console.log(data.data);
+          // console.log(data.data);
           if (data.data.insertedId) {
             toast.success("Product Added To Cart");
           }else  {
@@ -109,6 +110,20 @@ console.log(DetailsShoes.Description.Upper_Material);
     }
 
   };
+
+const handleAddToFavorite = (id) => {
+  const storedIdsString = localStorage.getItem("favoriteShoes");
+  const storedIds = storedIdsString ? JSON.parse(storedIdsString) : [];
+
+  if (!storedIds.includes(id)) {
+    storedIds.push(id);
+    localStorage.setItem("favoriteShoes", JSON.stringify(storedIds));
+    setIsFavorite(true);
+  } else {
+    // If item is already a favorite, you can handle accordingly
+    toast.error("Item is already a favorite");
+  }
+};
 
   return (
     <div className="bg-white">
@@ -257,7 +272,9 @@ console.log(DetailsShoes.Description.Upper_Material);
                           ADD to cart
                         </button>
                         {/* Heart icon */}
-                        <FiHeart size={20} />
+                        <button onClick={()=>handleAddToFavorite(DetailsShoes._id)}>
+                        <FiHeart size={27} />
+                        </button>
                       </div>
                       {/* Call us */}
                       <div className="py-4 flex hover:text-blue-400  items-center gap-3 border-y ">

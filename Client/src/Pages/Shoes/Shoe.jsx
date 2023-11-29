@@ -28,7 +28,6 @@ const Shoe = ({ shoes }) => {
             <h3 className="text-sm text-gray-700 hover:text-blue-400 cursor-pointer">
               {shoes?.name}
             </h3>
-            <FiHeart size={20} />
           </div>
           {/* Review */}
 

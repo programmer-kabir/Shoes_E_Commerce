@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const District = () => {
-    // console.log(District.json);
+  // console.log(District.json);
   const {
     refetch,
     data: districts = [],

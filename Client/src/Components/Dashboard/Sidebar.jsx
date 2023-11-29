@@ -52,18 +52,6 @@ const Sidebar = () => {
               </NavLink>
           {isAdmin && (
             <div className="space-y-5 pt-2  pb-2">
-             
-              <NavLink
-                to="instructor-Details"
-                className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : "text-[#6D7080]"
-                  }`
-                }
-              >
-                {/* <GiTeacher className="w-5 h-5" /> */}
-                <span>Instructor</span>
-              </NavLink>
               <NavLink
                 to="manage_user"
                 className={({ isActive }) =>
@@ -76,15 +64,15 @@ const Sidebar = () => {
                 <span>Manage User</span>
               </NavLink>
               <NavLink
-                to="manage-students"
+                to="add-product"
                 className={({ isActive }) =>
                   `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
                     isActive ? activeLinkClass : "text-[#6D7080]"
                   }`
                 }
               >
-                {/* <PiStudentFill className="w-5 h-5" /> */}
-                <span>Manage Student</span>
+                {/* <FaCircleUser className="w-5 h-5" /> */}
+                <span>Add Product</span>
               </NavLink>
             </div>
           )}
@@ -113,17 +101,7 @@ const Sidebar = () => {
                 {/* <FaUser className="w-5 h-5" /> */}
                 <span>My Orders</span>
               </NavLink>
-              <NavLink
-                to="wishlist"
-                className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : ""
-                  }`
-                }
-              >
-                {/* <FaUser className="w-5 h-5" /> */}
-                <span>Wishlist</span>
-              </NavLink>
+              
               <NavLink
                 to="reward-points"
                 className={({ isActive }) =>
@@ -136,17 +114,7 @@ const Sidebar = () => {
                 <span>My Reward Points</span>
               </NavLink>
 
-              <NavLink
-                to="payment-history"
-                className={({ isActive }) =>
-                  `font-medium transition-all text-base hover:text-[#7A8BFE] text-[#6D7080]  w-full flex items-center gap-4 px-5 capitalize ${
-                    isActive ? activeLinkClass : ""
-                  }`
-                }
-              >
-                {/* <FaUser className="w-5 h-5" /> */}
-                <span>Payment History</span>
-              </NavLink>
+              
             </div>
           )}
           <NavLink

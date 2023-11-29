@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../Redux/User/userSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Swal from 'sweetalert2'
 const Profile = () => {
   const { isLoading, users, error } = useSelector((state) => state.users);
   const dispatch = useDispatch();
@@ -64,14 +65,6 @@ const Profile = () => {
 
   const [isEditMode, setEditMode] = useState(false);
 
-  // const handleGenderChange = (e) => {
-  //   setGender(e.target.value);
-  //   setEditingGender(false);
-  // };
-  // const handleBirthDateChange = (e) => {
-  //   setBirthDate(e.target.value);
-  //   setEditingBirthDate(false);
-  // };
 
   const onSubmit = async(data) => {
     // console.log(data);
@@ -92,6 +85,20 @@ const Profile = () => {
         setEditMode(false)
       }
     })
+  };
+  const addedPhoneNumber = () => {
+    // Get the input element by its ID
+    const phoneNumberInput = document.getElementById('number');
+
+    // Log the input value to the console
+    console.log('Phone Number:', phoneNumberInput.value);
+    if(phoneNumberInput.value){
+      Swal.fire({
+        title: "Up Coming Phone Number",
+        text: "Please Update Soon ..Wait Pls",
+        icon: "success"
+      });
+    }
   };
   return (
     <div className="px-5 pt-7 ">
@@ -457,7 +464,7 @@ const Profile = () => {
                   className="relative block overflow-hidden rounded border border-gray-600 px-3 pt-3 shadow-sm outline-none"
                 >
                   <input
-                    type="text"
+                    type="number"
                     id="number"
                     placeholder="Phone Number"
                     className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -467,7 +474,7 @@ const Profile = () => {
                     Phone Number*
                   </span>
                 </label>
-                <button className="w-full bg-black text-white py-3 rounded-md text-center">
+                <button onClick={addedPhoneNumber} className="w-full bg-black text-white py-3 rounded-md text-center">
                   Proceed
                 </button>
               </div>

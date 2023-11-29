@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
+const stripe = require("stripe")(process.env.PAYMENT_SCREAT_KEY);
+
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -59,6 +61,9 @@ async function run() {
       .db("Shoe_E_Commerce")
       .collection("Division");
     const bookedCollection = client.db("Shoe_E_Commerce").collection("Booked");
+    const paymentCollection = client
+      .db("Shoe_E_Commerce")
+      .collection("payment");
 
     // jwT
     app.post("/jwt", (req, res) => {
@@ -82,17 +87,19 @@ async function run() {
     });
 
     // user update
-    app.put("/users", async(req, res) =>{
-      const updatedUserData  = req.body;
-      console.log(updatedUserData );
+    app.put("/users", async (req, res) => {
+      const updatedUserData = req.body;
+      console.log(updatedUserData);
       const query = { email: updatedUserData.email };
       const existingUser = await userCollection.findOne(query);
       if (!existingUser) {
         return res.status(404).json({ message: "User not found" });
       }
-      const result = await userCollection.updateOne(query, { $set: updatedUserData });
-      res.send(result)
-    })
+      const result = await userCollection.updateOne(query, {
+        $set: updatedUserData,
+      });
+      res.send(result);
+    });
 
     app.get("/users", async (req, res) => {
       const user = await userCollection.find().toArray();
@@ -169,7 +176,45 @@ async function run() {
       const data = await bookedCollection.find(query).toArray();
       res.send(data);
     });
-  
+
+    app.post("/create-payment-intent", async (req, res) => {
+      const { price } = req.body;
+      const amount = price * 100;
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount,
+        currency: "bdt",
+
+        payment_method_types: ["card"],
+      });
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    });
+
+    // payemnt
+    app.post("/payment", async (req, res) => {
+      const body = req.body;
+     const insertResult = await paymentCollection.insertOne(body)
+      const query = {
+        _id: {
+          $in: body.bookedId.map((id) => new ObjectId(id)),
+        },
+      };
+      const deleteResult = await bookedCollection.deleteMany(query)
+      res.send({insertResult, deleteResult})
+    });
+// get payemnt
+app.get('/payment', async(req, res) =>{
+  const email = req.query.email;
+  if (!email) {
+    res.send([]);
+  }
+  const query = { email: email };
+  const data = await paymentCollection.find(query).toArray();
+  res.send(data);
+})
+
+
     // Address
     app.get("/district", async (req, res) => {
       const district = await districtCollection.find().toArray();

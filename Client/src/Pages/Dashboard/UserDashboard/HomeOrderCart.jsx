@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useBooked from "../../../Components/Hooks/useBooked";
 import { FaTrash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
+import { Elements } from "@stripe/react-stripe-js";
+import Payment from "./payment";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_KEY);
 
 const HomeOrderCart = () => {
   const [booked, refetch] = useBooked();
@@ -26,7 +31,15 @@ const HomeOrderCart = () => {
   }
 
   const discountedTotal = total - discount;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <div>
@@ -37,7 +50,7 @@ const HomeOrderCart = () => {
           tabIndex="-1"
         >
           <div className="space-y-6">
-            <ul className="space-y-4">
+            {booked.length > 0 ? <ul className="space-y-4">
               {booked.map((book) => (
                 <li key={book._id} className="flex items-center gap-4">
                   <div className="border border-gray-400 p-1 rounded-md">
@@ -83,7 +96,7 @@ const HomeOrderCart = () => {
                   </div>
                 </li>
               ))}
-            </ul>
+            </ul>:<p className="text-center font-medium">No product added</p>}
             <div className="mt-8 pl-20 flex justify-end border-t border-gray-400 pt-8">
               <div className="w-screen max-w-lg space-y-4">
                 <dl className="space-y-0.5 text-sm text-gray-700">
@@ -172,12 +185,12 @@ const HomeOrderCart = () => {
                 View my cart ({booked.length})
               </Link>
 
-              <a
-                href="#"
-                className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+              <button
+               onClick={openModal}
+                className="block rounded w-full bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
               >
                 Checkout
-              </a>
+              </button>
 
               <Link
                 to="http://localhost:5173/mens_formal_shoes"
@@ -189,6 +202,31 @@ const HomeOrderCart = () => {
           </div>
         </div>
       </div>
+      
+              {isModalOpen && (
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+                  <div className="bg-white p-5 rounded-lg">
+                    {/* Modal content */}
+                   <div className="flex justify-between py-2">
+                   <h2 className="text-xl font-bold ">Checkout Modal</h2>
+                    <div className=" flex justify-end">
+                      <button
+                        onClick={closeModal}
+                        className="bg-gray-500 text-white py-1 px-2 rounded-md"
+                      >
+                        <MdLogout size={23} />
+                      </button>
+                    </div>
+                   </div>
+                      <div className="py-4 w-[350px]">
+                        <Elements  stripe={stripePromise}>
+                          <Payment closeModal={closeModal} discountedTotal={discountedTotal} />
+                        </Elements>
+                      </div>
+                   
+                  </div>
+                </div>
+              )}
     </div>
   );
 };

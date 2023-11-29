@@ -23,7 +23,7 @@ const DiscountShoes = () => {
             "Put Your Best Foot Forward with Unbeatable Discounts on Stylish Footwear."
           }
         />
-        <div className="grid grid-cols-4 gap-5 pb-7 pt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 pb-7 pt-10">
           {shoes.map((shoe) => (
             <div key={shoe._id}>
               <div className="group text-start relative block overflow-hidden">

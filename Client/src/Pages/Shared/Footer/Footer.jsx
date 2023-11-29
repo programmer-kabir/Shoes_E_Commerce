@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="mt-16 pb-16 bg-[#141414] text-white">
       <Content className="">
-        <section className="grid grid-cols-5 pt-8 class border-b pb-12 border-gray-500">
+        <section className="grid md:grid-cols-5 pt-8 class border-b pb-12 border-gray-500">
           {/* 1st */}
           <div>
             <FooterComponent
@@ -22,7 +22,7 @@ const Footer = () => {
             />
           </div>
           {/* 2nd */}
-          <div>
+          <div className="mt-10">
             <FooterComponent
               title={"INFORMATION"}
               text={[
@@ -36,7 +36,7 @@ const Footer = () => {
             />
           </div>
           {/* 3rd */}
-          <div>
+          <div className="mt-10">
             <FooterComponent
               title={"POPULAR BRANDS"}
               text={[
@@ -51,7 +51,7 @@ const Footer = () => {
             />
           </div>
           {/* 4th */}
-          <div>
+          <div className="mt-10">
             <FooterComponent
               title={"CUSTOMER SERVICE"}
               text={[
@@ -65,7 +65,7 @@ const Footer = () => {
             />
           </div>
           {/* 5th */}
-          <div>
+          <div className="mt-10">
             <FooterComponent
               title={"INFO"}
               text={[

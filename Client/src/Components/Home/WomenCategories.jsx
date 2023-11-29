@@ -21,8 +21,8 @@ const WomenCategories = () => {
     const womenCategories = categories.filter((category) => category.Gender === "women");
     return (
         <Content>
-      <div className="mt-16 h-full">
-        <Title title={'Women Shoes'}/>
+      <div className="md:mt-14 mt-9 h-full ">
+        <Title title={'Mens Shoes'}/>
         <div className="pt-5">
           <Swiper
             slidesPerView={1}
@@ -40,22 +40,22 @@ const WomenCategories = () => {
               },
             }}
           >
-            {womenCategories.map((category,index) => (
-            <SwiperSlide key={index}>
-              <section className="w-[390px] relative h-[500px] mb-5">
-              <div className="h-[300px] overflow-hidden">
+            {womenCategories.map((category) => (
+            <SwiperSlide key={category._id}>
+              <section className="w-[500px] relative h-[500px] md:mb-10 -mb-10">
+              <div className="h-[300px]  rounded-md overflow-hidden">
                 <img
                   className="w-full  transform hover:scale-110 duration-200"
                   src={category?.image}
                   alt=""
                 />
               </div>
-              <div className="space-y-4  absolute mx-10 z-50 bg-white top-60 flex flex-col py-2 px-5 justify-center text-start text-black">
+              <div className="space-y-4 h-[270px] rounded-md shadow absolute mx-10 z-50 bg-white md:top-60 top-40 flex flex-col py-2 px-5 justify-center text-start text-black">
                 <p className="font-semibold text-2xl ">{category?.title}</p>
-                <p className="font-[300]">
+                <p className="font-[300] text-sm md:text-base">
                   {category?.description}
                 </p>
-                <Link to={`${category?.link}`} className="absolute -bottom-10 w-full">
+                <Link to={`${category?.link}`} className="-bottom-10 w-full">
                   <button  className="py-1 bg-black rounded w-full text-white font-medium">
                     Explore Our Product
                   </button>
