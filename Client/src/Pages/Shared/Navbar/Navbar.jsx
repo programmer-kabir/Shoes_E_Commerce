@@ -15,15 +15,16 @@ import { MdDashboardCustomize } from "react-icons/md";
 // import HomeOrderCart from "../../Dashboard/UserDashboard/HomeOrderCart";
 import { RxCross2 } from "react-icons/rx";
 import Content from "../../../Components/Content/Content";
+import useAuth from "../../../Components/Hooks/useAuth";
 const Navbar = () => {
-  const user = true;
-  // const { user, logOut } = useAuth();
+  // const user = false;
+  const { user, logOut } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [nav, setNav] = useState(false);
   const activeLink = "text-red-700";
   const activeThirdLink = "text-red-500 transition-all 0.3s";
   const handleLogOut = () => {
-    // logOut();
+    logOut();
   };
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -151,8 +152,9 @@ const Navbar = () => {
         <Content>
           <div className="flex items-center justify-between py-3">
             <div className="font-semibold text-base space-x-5">
-              {route.map((rout) => (
+              {route.map((rout, index) => (
                 <NavLink
+                  key={index}
                   to={rout.link}
                   className={({ isActive }) =>
                     isActive
