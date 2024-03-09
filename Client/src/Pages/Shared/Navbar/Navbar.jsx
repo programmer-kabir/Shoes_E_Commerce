@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../assets/Logo/logo.svg";
+import logo from "../../../assets/Logo/logo.svg";
 // import Content from "../../../Components/Content/Content";
 import { Link, NavLink } from "react-router-dom";
 import {
@@ -14,7 +14,7 @@ import { FiSearch, FiShoppingCart } from "react-icons/fi";
 import { MdDashboardCustomize } from "react-icons/md";
 // import HomeOrderCart from "../../Dashboard/UserDashboard/HomeOrderCart";
 import { RxCross2 } from "react-icons/rx";
-import Content from "../../Components/Content/Content";
+import Content from "../../../Components/Content/Content";
 const Navbar = () => {
   const user = true;
   // const { user, logOut } = useAuth();
@@ -70,7 +70,6 @@ const Navbar = () => {
           <div className="flex items-center justify-between py-2">
             <Link to={"/"}>
               <img className="w-[151px]" src={logo} alt="Logo" />
-             
             </Link>
             <div className="font-medium">
               <NavLink
