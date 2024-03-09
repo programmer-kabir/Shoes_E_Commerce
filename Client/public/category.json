@@ -1,0 +1,110 @@
+[
+    {
+      "_id": 1,
+      "category": "mens_formal_shoes",
+      "title":"Men's Formal Shoes",
+      "description":"Classic men's formal shoes, perfect for any occasion, featuring timeless designs and exceptional craftsmanship  men's formal shoes.",
+      "image": "https://i.ibb.co/HhYFW0J/Formal-Shoes-Banner.jpg",
+      "link":"/mens_formal_shoes",
+      "Gender":"male"
+    },
+    {
+      "_id": 2,
+      "category": "mens_casual_shoes",
+      "title":"Men's Casual Shoes",
+      "description":"Men's casual shoes are a versatile part of a modern wardrobe. They are designed to provide both comfort and occasions.",
+      "image": "https://i.ibb.co/X8HN45L/Men-s-Casual-Shoes.png",
+      "link":"/mens_casual_shoes",
+      "Gender":"male"
+    },
+    {
+      "_id": 3,
+      "category": "mens_sports_shoes",
+      "title":"Men's Sports Shoes",
+      "description":"Experience optimal performance and style with our men's sports shoes. Designed for comfort and support, they're  perfect for any athletic activity",
+      "image": "https://i.ibb.co/1ZLK8QL/menssportshoes-clipdrop-remove-text.jpg",
+      "link":"/mens_sports_shoes",
+      "Gender":"male"
+    },
+    {
+      "_id": 4,
+      "category": "mens_Sandals_Flip-Flops",
+      "title":"Men's Sandals & Flip-Flops",
+      "description":"Elevate your casual  sandals these footwear options are perfect for a relaxed, laid-back vibe",
+      "image": "https://i.ibb.co/gRrJBMN/Men-s-Sandals-Flip-Flops.png",
+      "link":"/mens_Sandals_Flip-Flops",
+      "Gender":"male"
+    },
+    {
+      "_id": 5,
+      "category": "mens_boots",
+      "title":"Men's Boots",
+      "description":"Elevate your style with our  you're heading to the office or exploring the outdoors, these boots offer durability, comfort, and timeless fashion.",
+      "image": "https://i.ibb.co/S0MsNBw/men-s-Boots.png",
+      "link":"/mens_boots",
+      "Gender":"male"
+    },
+    {
+      "_id": 6,
+      "category": "mens_converse_sneakers",
+      "title":" Men's Converse & Sneakers",
+      "description":"Step up your street style with our men's Converse and these shoes blend fashion and comfort effortlessly.",
+      "image": "https://i.ibb.co/Vp88BHz/Men-s-Converse-Sneakers.png",
+      "link":"/mens_converse_sneakers",
+      "Gender":"male"
+    },
+    {
+      "_id": 7,
+      "category": "mens_loafers",
+      "title":" Men's Loafers",
+      "description":"Elevate your casual and sophisticated shoes combine comfort, style, and versatility, making them a must-have in your wardrobe.",
+      "image": "https://i.ibb.co/CWXb1N2/Men-s-Loafers.png",
+      "link":"/mens_loafers",
+      "Gender":"male"
+    },
+    {
+      "_id": 8,
+      "category": "women_Sandals_Flip-Flops",
+      "title":" Women's Sandals & Flip-Flops",
+      "description":"Elevate your casual and sophisticated shoes combine comfort, style, and versatility, making them a must-have in your wardrobe.",
+      "image": "https://i.ibb.co/CWXb1N2/Men-s-Loafers.png",
+      "link":"/women_Sandals_Flip-Flops",
+      "Gender":"women"
+    },
+    {
+      "_id": 9,
+      "category": "women_Flat_Sandals",
+      "title":" Women's Flat Sandals",
+      "description":"Elevate your casual and sophisticated shoes combine comfort, style, and versatility, making them a must-have in your wardrobe.",
+      "image": "https://i.ibb.co/CWXb1N2/Men-s-Loafers.png",
+      "link":"/women_Flat_Sandals",
+      "Gender":"women"
+    },
+    {
+      "_id": 10,
+      "category": "women_hell",
+      "title":" Heel",
+      "description":"Elevate your casual and sophisticated shoes combine comfort, style, and versatility, making them a must-have in your wardrobe.",
+      "image": "https://i.ibb.co/CWXb1N2/Men-s-Loafers.png",
+      "link":"/women_hell",
+      "Gender":"women"
+    },
+    {
+      "_id": 11,
+      "category": "women_casual_shoes",
+      "title":"Women's Casual Shoes",
+      "description":"Elevate your casual and sophisticated shoes combine comfort, style, and versatility, making them a must-have in your wardrobe.",
+      "image": "https://i.ibb.co/CWXb1N2/Men-s-Loafers.png",
+      "link":"/women_casual_shoes",
+      "Gender":"women"
+    },
+    {
+      "_id": 11,
+      "category": "women_sports_shoes",
+      "title":"Women's Sports Shoes",
+      "description":"Elevate your casual and sophisticated shoes combine comfort, style, and versatility, making them a must-have in your wardrobe.",
+      "image": "https://i.ibb.co/CWXb1N2/Men-s-Loafers.png",
+      "link":"/women_sports_shoes",
+      "Gender":"women"
+    }
+  ]
