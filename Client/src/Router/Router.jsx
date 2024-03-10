@@ -7,6 +7,7 @@ import Shoes from "../Pages/Shoes/Shoes";
 import SingleShoes from "../Pages/Shoes/SingleShoes";
 import Dashboard from "../Layout/Dashboard";
 import Account from "../Pages/Dashboard/Shared/Account";
+import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +46,10 @@ const router = createBrowserRouter([
         element: <Account />,
       },
       // Admin
-      // {
-      //   path: "manage_user",
-      //   element: <AllUsers />,
-      // },
+      {
+        path: "manage_user",
+        element: <AllUsers />,
+      },
       // {
       //   path: "add-product",
       //   element: <AddProduct />,
