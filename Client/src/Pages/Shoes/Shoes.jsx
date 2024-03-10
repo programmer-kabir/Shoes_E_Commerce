@@ -170,7 +170,7 @@ const Shoes = () => {
               </div>
             </div>
             {/* Right Side */}
-            <div className="w-3/4  bg">
+            <div className="w-3/4  bg-white">
               <div className="grid grid-cols-4 gap-4">
                 {filteredShoes.map((shoes) => (
                   <Shoe key={shoes._id} shoes={shoes} />
