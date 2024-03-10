@@ -5,6 +5,8 @@ import Register from "../Pages/Authencation/Register/Register";
 import Login from "../Pages/Authencation/Login/Login";
 import Shoes from "../Pages/Shoes/Shoes";
 import SingleShoes from "../Pages/Shoes/SingleShoes";
+import Dashboard from "../Layout/Dashboard";
+import Account from "../Pages/Dashboard/Shared/Account";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,42 @@ const router = createBrowserRouter([
         element: <SingleShoes />,
         loader: ({ params }) => `http://localhost:5173/:shoes/${params.id}`,
       },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "my_account",
+        element: <Account />,
+      },
+      // Admin
+      // {
+      //   path: "manage_user",
+      //   element: <AllUsers />,
+      // },
+      // {
+      //   path: "add-product",
+      //   element: <AddProduct />,
+      // },
+      // User
+      // {
+      //   path: "my_profile",
+      //   element: <Profile />,
+      // },
+      // {
+      //   path: "my_orders",
+      //   element: <MyOrder />,
+      // },
+      // {
+      //   path: "reward-points",
+      //   element: <Reward />,
+      // },
+      // {
+      //   path: "payment-history",
+      //   element: <PaymentHistory />,
+      // },
     ],
   },
 ]);
