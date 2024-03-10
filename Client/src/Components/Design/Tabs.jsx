@@ -35,6 +35,12 @@ const Tabs = ({ DetailsShoes }) => {
         return "";
     }
   };
+  const [orderNotes, setOrderNotes] = useState("");
+
+  const handleClear = () => {
+    setOrderNotes("");
+  };
+
   return (
     <div>
       <div className="w-full pt-10">
@@ -159,11 +165,14 @@ const Tabs = ({ DetailsShoes }) => {
                     id="OrderNotes"
                     className="w-full outline-none text-base resize-none border-none align-top "
                     rows="4"
+                    value={orderNotes}
+                    onChange={(e) => setOrderNotes(e.target.value)}
                     placeholder="Enter any additional order notes..."
                   ></textarea>
 
                   <div className="flex items-center justify-end gap-2 bg-white p-3">
                     <button
+                      onClick={handleClear}
                       type="button"
                       className="rounded bg-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-600"
                     >
@@ -181,7 +190,7 @@ const Tabs = ({ DetailsShoes }) => {
               </div>
               {/* Review Show */}
               <div className="pt-10">
-                <div className="border-t ">asf</div>
+                <div className="border-t "></div>
               </div>
             </div>
           )}
