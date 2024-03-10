@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: white;
+body {
+  background-color: white;
+}
+* {
+  font-family: "Montserrat", sans-serif;
+}
+.primary-btn {
+  background-color: white;
+  color: black;
+  padding: 12px 22px;
+  border-radius: 7px;
+  font-weight: 600;
 }
