@@ -20,6 +20,7 @@ const Shoes = () => {
   useEffect(() => {
     dispatch(fetchShoes());
   }, []);
+
   // console.log(shoes);
   const [category] = useCategories();
   const link = useParams();
