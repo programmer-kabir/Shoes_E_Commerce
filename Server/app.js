@@ -28,11 +28,29 @@ async function run() {
     await client.connect();
 
     const shoesCollection = client.db("ShoeECommerce").collection("shoes");
+    const usersCollection = client.db("ShoeECommerce").collection("users");
+
+    // Users
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await usersCollection.findOne(query);
+      if (existingUser) {
+        return res.send({ message: "user already exist" });
+      }
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
+
+    app.get("/users", async (req, res) => {
+      const user = await usersCollection.find().toArray();
+      res.send(user);
+    });
 
     // Shoes
     app.get("/shoes", async (req, res) => {
-      const shoes = await shoesCollection.find().toArray()
-      res.send(shoes)
+      const shoes = await shoesCollection.find().toArray();
+      res.send(shoes);
     });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
