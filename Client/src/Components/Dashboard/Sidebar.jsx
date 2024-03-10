@@ -8,10 +8,15 @@ import {
 } from "react-icons/fa6";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../../assets/Logo/logo.svg";
+import useAdmin from "../Hooks/useAdmin";
+import Loader from "../Loader/Loader";
 const Sidebar = () => {
   const { user } = useAuth();
 
-  const isAdmin = true;
+  const [isAdmin,isAdminLoading] = useAdmin();
+  if(isAdminLoading){
+    <Loader />
+  }
   // console.log(isAdmin);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
