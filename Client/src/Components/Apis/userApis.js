@@ -1,3 +1,6 @@
+import axios from "axios"
+import toast from "react-hot-toast"
+
 export const RegisterUser = user =>{
     // console.log(user);
     const currentUser = {
@@ -16,3 +19,4 @@ export const RegisterUser = user =>{
     .then(data => console.log(data))
     
 }
+

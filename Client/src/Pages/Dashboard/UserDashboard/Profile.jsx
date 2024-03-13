@@ -15,8 +15,9 @@ const Profile = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUser());
-  }, []);
-  console.log(users);
+  }, [users]);
+
+  // console.log(users);
   const {
     handleSubmit,
     control,
@@ -24,12 +25,12 @@ const Profile = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const { user, updateUserProfile } = useAuth();
+  const { user,  } = useAuth();
   const matchingUsers = users.filter(
     (userData) => userData.email === user?.email
   );
 
-  // console.log(matchingUsers);
+  // console.log(user?.email);
   const [district] = District();
   const [division] = Division();
   const [upZillahs] = upZillah();
@@ -87,19 +88,28 @@ const Profile = () => {
         }
       });
   };
-  const addedPhoneNumber = () => {
+  const addedPhoneNumber = async () => {
+    const email = user?.email;
     // Get the input element by its ID
     const phoneNumberInput = document.getElementById("number");
-
+    const number = phoneNumberInput.value
     // Log the input value to the console
-    console.log("Phone Number:", phoneNumberInput.value);
-    if (phoneNumberInput.value) {
-      Swal.fire({
-        title: "Up Coming Phone Number",
-        text: "Please Update Soon ..Wait Pls",
-        icon: "success",
+    
+    const data = {email, number};
+    console.log(data);
+    const response = await axios
+      .put(
+        `${import.meta.env.VITE_LOCALHOST_KEY}/users`,
+        data
+      )
+      .then((data) => {
+        // console.log(data.data);
+        if (data.data.modifiedCount > 0) {
+          // dispatch(updateUser(data));
+          phoneNumberInput.value = '';
+          toast.success("Successfully Your Number added");
+        }
       });
-    }
   };
   return (
     <div className="px-5 pt-7 ">
@@ -465,6 +475,7 @@ const Profile = () => {
                     type="number"
                     id="number"
                     placeholder="Phone Number"
+                    defaultValue={matchingUsers[0]?.number }
                     className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                   />
 
