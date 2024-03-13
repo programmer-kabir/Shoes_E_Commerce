@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(fetchUser());
   }, []);
-  //   console.log(users);
+  console.log(users);
   const {
     handleSubmit,
     control,
@@ -211,7 +211,7 @@ const Profile = () => {
                     name="gender"
                     id="gender"
                     {...register("gender", { required: true })}
-                    defaultValue={matchingUsers[0]?.gender}
+                    defaultValue={matchingUsers?.gender}
                     className={`border ${
                       errors.date
                         ? "border-red-500 outline-none"
