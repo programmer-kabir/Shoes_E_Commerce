@@ -49,7 +49,15 @@ async function run() {
 
     const shoesCollection = client.db("ShoeECommerce").collection("shoes");
     const usersCollection = client.db("ShoeECommerce").collection("users");
-
+    const upZillahCollection = client
+    .db("ShoeECommerce")
+    .collection("upZillah");
+  const districtCollection = client
+    .db("ShoeECommerce")
+    .collection("District");
+  const divisionCollection = client
+    .db("ShoeECommerce")
+    .collection("Divisions");
     // JWT
     app.post("/jwt", (req, res) => {
       const user = req.body;
@@ -71,6 +79,21 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/users", async (req, res) => {
+      const updatedUserData = req.body;
+      console.log(updatedUserData);
+      const query = { email: updatedUserData.email };
+      const existingUser = await userCollection.findOne(query);
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const result = await userCollection.updateOne(query, {
+        $set: updatedUserData,
+      });
+      res.send(result);
+    });
+
+    
     app.get("/users", async (req, res) => {
       const user = await usersCollection.find().toArray();
       res.send(user);
@@ -121,6 +144,27 @@ async function run() {
       const shoes = await shoesCollection.find().toArray();
       res.send(shoes);
     });
+
+
+
+
+
+    // Address
+    app.get("/district", async (req, res) => {
+      const district = await districtCollection.find().toArray();
+      res.send(district);
+    });
+    // division
+    app.get("/divisions", async (req, res) => {
+      const divisions = await divisionCollection.find().toArray();
+      res.send(divisions);
+    });
+    // upzillah
+    app.get("/upZillahs", async (req, res) => {
+      const upZillahs = await upZillahCollection.find().toArray();
+      res.send(upZillahs);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("MONGODB Connect successfully😊😊😊");

@@ -8,6 +8,7 @@ import SingleShoes from "../Pages/Shoes/SingleShoes";
 import Dashboard from "../Layout/Dashboard";
 import Account from "../Pages/Dashboard/Shared/Account";
 import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
+import Profile from "../Pages/Dashboard/UserDashboard/Profile";
 
 const router = createBrowserRouter([
   {
@@ -55,10 +56,10 @@ const router = createBrowserRouter([
       //   element: <AddProduct />,
       // },
       // User
-      // {
-      //   path: "my_profile",
-      //   element: <Profile />,
-      // },
+      {
+        path: "my_profile",
+        element: <Profile />,
+      },
       // {
       //   path: "my_orders",
       //   element: <MyOrder />,
