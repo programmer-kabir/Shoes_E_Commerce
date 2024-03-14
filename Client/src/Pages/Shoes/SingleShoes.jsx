@@ -69,18 +69,19 @@ const SingleShoes = () => {
         toast.error("size not Select");
         return;
       }
+      console.log(id);
       
       axios
         .post(`${import.meta.env.VITE_LOCALHOST_KEY}/booked`, {
           productId: id,
-          name:DetailsShoes?.name,
-          image:DetailsShoes.mainImage,
+          // name:DetailsShoes?.name,
+          // image:DetailsShoes.mainImage,
           email: user?.email,
-          size: activeSize,
-          quantity,
-          price:DetailsShoes.price,
-          upperMaterial:DetailsShoes.Description.Upper_Material,
-          seller:DetailsShoes.seller
+          // size: activeSize,
+          // quantity,
+          // price:DetailsShoes.price,
+          // upperMaterial:DetailsShoes.Description.Upper_Material,
+          // seller:DetailsShoes.seller
         })
         .then((data) => {
           // console.log(data.data);
@@ -110,6 +111,7 @@ const SingleShoes = () => {
     }
 
   };
+
 
 const handleAddToFavorite = (id) => {
   const storedIdsString = localStorage.getItem("favoriteShoes");

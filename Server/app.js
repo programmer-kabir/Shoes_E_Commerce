@@ -48,6 +48,7 @@ async function run() {
     await client.connect();
 
     const shoesCollection = client.db("ShoeECommerce").collection("shoes");
+    const bookedCollection = client.db("ShoeECommerce").collection("Booked");
     const usersCollection = client.db("ShoeECommerce").collection("users");
     const upZillahCollection = client
     .db("ShoeECommerce")
@@ -145,7 +146,31 @@ async function run() {
       res.send(shoes);
     });
 
-
+ // Booked Data
+ app.post("/booked", async (req, res) => {
+  const body = req.body;
+  const id = body.productId;
+  const email = body.email;
+  const filter = { productId: id, email };
+  // console.log(filter);
+  const data = await bookedCollection.findOne(filter);
+  if (data) {
+    return res.send({ message: "Class already exist" });
+  } else {
+    const result = await bookedCollection.insertOne(body);
+    res.send(result);
+  }
+});
+app.get("/booked", async (req, res) => {
+  const email = req.query.email;
+  // console.log(email);
+  if (!email) {
+    res.send([]);
+  }
+  const query = { email: email };
+  const data = await bookedCollection.find(query).toArray();
+  res.send(data);
+});
 
 
 
