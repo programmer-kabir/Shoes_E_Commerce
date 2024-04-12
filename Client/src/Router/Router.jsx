@@ -11,6 +11,7 @@ import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
 import Profile from "../Pages/Dashboard/UserDashboard/Profile";
 import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
 import ThankYouPage from "../Pages/Dashboard/UserDashboard/ThankYouPage";
+import Invoice from "../Pages/Dashboard/UserDashboard/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +31,14 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: "/invoice",
+        element: <Invoice />,
+      },
+      {
         path: "/:shoes",
         element: <Shoes />,
       },
-      
+
       {
         path: "/:mens_formal_shoes/:id",
         element: <SingleShoes />,

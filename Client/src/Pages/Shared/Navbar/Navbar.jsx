@@ -74,6 +74,16 @@ const Navbar = () => {
             </Link>
             <div className="font-medium">
               <NavLink
+                to="/invoice"
+                className={({ isActive }) =>
+                  isActive
+                    ? `${activeThirdLink}   px-2`
+                    : " hover:text-red-700   px-2  transition-all 0.3s"
+                }
+              >
+                Invoice
+              </NavLink>
+              <NavLink
                 to="/s"
                 className={({ isActive }) =>
                   isActive
