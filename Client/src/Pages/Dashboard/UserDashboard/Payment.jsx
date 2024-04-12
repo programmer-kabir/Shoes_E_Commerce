@@ -29,8 +29,6 @@ const Payment = ({ discountedTotal, closeModal }) => {
       setClientSecret(res.data.clientSecret);
     });
   }, []);
-// const bookedId = booked.map(item =>item._id)
-// console.log(bookedId);
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
@@ -64,35 +62,32 @@ const Payment = ({ discountedTotal, closeModal }) => {
 
     if (confirmError) {
       console.log(confirmError);
-      toast.error(confirmError)
+      toast.error(confirmError);
     }
     // console.log(paymentIntent);
     setProcessing(false);
-    
+
     if (paymentIntent.status === "succeeded") {
       setTransactionId(paymentIntent.id);
       const transactionId = paymentIntent.id;
-     
+
       const data = {
-        transactionId, 
-        email:user?.email,
+        transactionId,
+        email: user?.email,
         price,
-        data:new Date(),
-        productId : booked.map(item =>item.productId),
-        bookedId : booked.map(item =>item._id)
-
-      }
+        data: new Date(),
+        productId: booked.map((item) => item.productId),
+        bookedId: booked.map((item) => item._id),
+      };
       // console.log(data);
-      axiosSecure.post('/payment', data)
-      .then(res => {
+      axiosSecure.post("/payment", data).then((res) => {
         console.log(res);
-        if(res.data.insertResult){
-          toast.success('payment succeeded')
+        if (res.data.insertResult) {
+          toast.success("payment succeeded");
           closeModal();
-          navigate(`/${user.email}/thank_you_page`);
-
+          navigate(`./thank_you_page`, { state: { bookedData: booked } });
         }
-      })
+      });
     }
   };
 

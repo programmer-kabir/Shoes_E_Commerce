@@ -326,6 +326,7 @@ const MyOrder = () => {
                       <Elements stripe={stripePromise}>
                         <Payment
                           closeModal={closeModal}
+                          booked={booked}
                           discountedTotal={discountedTotal}
                         />
                       </Elements>

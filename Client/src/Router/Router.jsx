@@ -33,10 +33,7 @@ const router = createBrowserRouter([
         path: "/:shoes",
         element: <Shoes />,
       },
-      // {
-      //   path: `${user?.email}/thank_you_page`,
-      //   element: <ThankYouPage />,
-      // },
+      
       {
         path: "/:mens_formal_shoes/:id",
         element: <SingleShoes />,
@@ -65,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "my_profile",
         element: <Profile />,
+      },
+      {
+        path: "my_orders/thank_you_page",
+        element: <ThankYouPage />,
       },
       {
         path: "my_orders",
