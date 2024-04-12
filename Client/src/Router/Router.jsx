@@ -9,6 +9,8 @@ import Dashboard from "../Layout/Dashboard";
 import Account from "../Pages/Dashboard/Shared/Account";
 import AllUsers from "../Pages/Dashboard/AdminDashboard/AllUsers";
 import Profile from "../Pages/Dashboard/UserDashboard/Profile";
+import MyOrder from "../Pages/Dashboard/UserDashboard/MyOrder";
+import ThankYouPage from "../Pages/Dashboard/UserDashboard/ThankYouPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
         path: "/:shoes",
         element: <Shoes />,
       },
+      // {
+      //   path: `${user?.email}/thank_you_page`,
+      //   element: <ThankYouPage />,
+      // },
       {
         path: "/:mens_formal_shoes/:id",
         element: <SingleShoes />,
@@ -60,10 +66,11 @@ const router = createBrowserRouter([
         path: "my_profile",
         element: <Profile />,
       },
-      // {
-      //   path: "my_orders",
-      //   element: <MyOrder />,
-      // },
+      {
+        path: "my_orders",
+        element: <MyOrder />,
+      },
+
       // {
       //   path: "reward-points",
       //   element: <Reward />,
